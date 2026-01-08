@@ -5,28 +5,28 @@ function TestimonialsSection() {
     {
       id: 1,
       name: 'Ahmed Mohamed',
-      image: '/user1.jpg',
+      image: '/Ellipse 1.png',
       rating: 5,
       text: 'جئت إلى هذا المستشفى بسبب السمعة الطيبة للدكتورة جهاد، ولم أندم على ذلك. طبيبة واثقة وهادئة وذات أخلاق عالية، ولم أجد التشخيص الصحيح إلا لديها. الحمد لله ثم لها، كل شيء أصبح أفضل الآن، وإن كان المستشفى يستحق خمس نجوم فذلك بفضلها.'
     },
     {
       id: 2,
       name: 'Fatima Ali',
-      image: '/user2.jpg',
+      image: '/Ellipse 2.png',
       rating: 5,
       text: 'جئت إلى هذا المستشفى بسبب السمعة الطيبة للدكتورة جهاد، ولم أندم على ذلك. طبيبة واثقة وهادئة وذات أخلاق عالية، ولم أجد التشخيص الصحيح إلا لديها. الحمد لله ثم لها، كل شيء أصبح أفضل الآن، وإن كان المستشفى يستحق خمس نجوم فذلك بفضلها.'
     },
     {
       id: 3,
       name: 'Khaled Hassan',
-      image: '/user3.jpg',
+      image: '/Ellipse 6.png',
       rating: 5,
       text: 'جئت إلى هذا المستشفى بسبب السمعة الطيبة للدكتورة جهاد، ولم أندم على ذلك. طبيبة واثقة وهادئة وذات أخلاق عالية، ولم أجد التشخيص الصحيح إلا لديها. الحمد لله ثم لها، كل شيء أصبح أفضل الآن، وإن كان المستشفى يستحق خمس نجوم فذلك بفضلها.'
     },
     {
       id: 4,
       name: 'Sara Mahmoud',
-      image: '/user4.jpg',
+      image: '/Ellipse 5.png',
       rating: 5,
       text: 'جئت إلى هذا المستشفى بسبب السمعة الطيبة للدكتورة جهاد، ولم أندم على ذلك. طبيبة واثقة وهادئة وذات أخلاق عالية، ولم أجد التشخيص الصحيح إلا لديها. الحمد لله ثم لها، كل شيء أصبح أفضل الآن، وإن كان المستشفى يستحق خمس نجوم فذلك بفضلها.'
     }
@@ -68,14 +68,34 @@ function TestimonialsSection() {
              className="
                bg-white rounded-xl shadow-md text-center
                hover:shadow-lg transition-all duration-300
-               w-full max-w-[550px] h-[300px]
+               w-full max-w-[550px] h-[250px]
                flex flex-col
                p-6
+               relative
              "
            >
            
             
                    
+           {/* أيقونة علامة الاقتباس */}
+           <img
+             src={
+               testimonial.id === 1 ? '/Vector 1.png' :
+               testimonial.id === 2 ? '/Inverted Commas.png' :
+               testimonial.id === 3 ? '/Vector.png' :
+               '/Vector.png'
+             }
+             alt="Quote Icon"
+             className="absolute"
+             style={{
+               width: '40.64px',
+               height: '32.51px',
+               top: '35px',
+               left: '16px',
+               opacity: 1
+             }}
+           />
+
                 {/* الصورة الدائرية */}
                 <div className="-mt-10 mb-4">
                   <div className="w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-white shadow-lg">

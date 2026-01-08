@@ -27,7 +27,7 @@ function WelcomeSection() {
         {/* المحتوى */}
         <div className="flex flex-col md:flex-row items-center md:items-stretch gap-8 md:gap-12 py-10">
           {/* الجزء الأيسر - الصور الدائرية (Ellipse 3 / Ellipse 4) */}
-          <div className="w-full md:w-1/2 flex justify-center md:justify-start">
+          <div className="w-full md:w-1/2 flex justify-center md:justify-start md:transform md:translate-x-20">
             <div className="relative w-72 h-72 sm:w-80 sm:h-80">
               {/* الدائرة الكبيرة */}
               <div className="absolute top-0 left-2 w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden shadow-xl border-4 border-white">

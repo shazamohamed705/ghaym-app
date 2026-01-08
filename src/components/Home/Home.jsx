@@ -7,6 +7,7 @@ import CTASection from './sections/CTASection';
 import StatsSection from './sections/StatsSection';
 import WhyChooseSection from './sections/WhyChooseSection';
 import TestimonialsSection from './sections/TestimonialsSection';
+import BlogSection from './sections/BlogSection';
 function Home() {
   return (
     <MainLayout>
@@ -17,6 +18,7 @@ function Home() {
 <StatsSection />
 <WhyChooseSection />
 <TestimonialsSection/>
+<BlogSection/>
     </MainLayout>
   );
 }

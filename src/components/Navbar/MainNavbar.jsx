@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,13 +41,13 @@ function MainNavbar() {
 
           {/* Links */}
           <div className="flex flex-col gap-3 text-sm">
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">الرئيسية</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">عروضنا</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">أطباؤنا</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">حجز موعد</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">من نحن</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">المدونة</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors">تواصل معنا</a>
+            <Link to="/" className="text-gray-800 hover:text-blue-600 transition-colors">الرئيسية</Link>
+            <Link to="/offers" className="text-gray-800 hover:text-blue-600 transition-colors">عروضنا</Link>
+            <Link to="/doctors" className="text-gray-800 hover:text-blue-600 transition-colors">أطباؤنا</Link>
+            <a href="/booking" className="text-gray-800 hover:text-blue-600 transition-colors">حجز موعد</a>
+            <a href="/about" className="text-gray-800 hover:text-blue-600 transition-colors">من نحن</a>
+            <Link to="/blog" className="text-gray-800 hover:text-blue-600 transition-colors">المدونة</Link>
+            <Link to="/contact" className="text-gray-800 hover:text-blue-600 transition-colors">تواصل معنا</Link>
           </div>
 
           {/* Account / Cart */}
@@ -143,13 +144,13 @@ function MainNavbar() {
         <div className="container mx-auto px-4 py-3 flex flex-col lg:flex-row items-center gap-4" style={{ transform: 'translateX(-17rem)' }}>
           {/* Navigation Links */}
           <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 lg:gap-6 order-1 lg:order-1">
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">الرئيسية</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">عروضنا</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">أطباؤنا</a>
+            <Link to="/" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">الرئيسية</Link>
+            <Link to="/offers" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">عروضنا</Link>
+            <Link to="/doctors" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">أطباؤنا</Link>
             <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">حجز موعد</a>
             <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">من نحن</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">المدونة</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">تواصل معنا</a>
+            <Link to="/blog" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">المدونة</Link>
+            <Link to="/contact" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">تواصل معنا</Link>
           </div>
 
           {/* Departments Button */}
