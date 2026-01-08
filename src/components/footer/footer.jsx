@@ -163,7 +163,6 @@ function Footer() {
             <span className="w-8 h-8 rounded-full bg-[#9bc115] flex items-center justify-center text-white">
               <FaYoutube className="text-sm" />
               
-              <h4 className="font-bold text-white text-base">تواصل معنا</h4>
 
             </span>
           </div>

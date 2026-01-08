@@ -53,11 +53,11 @@ function BlogSection() {
                 {/* زر اقرأ المزيد */}
                 <Link
                   to="/blog"
-                  className="mt-6 px-6 py-2 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-colors duration-300 text-sm font-semibold flex items-center gap-2 inline-block"
+                  className="mt-6 px-4 py-2 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-colors duration-300 text-sm font-semibold flex items-center gap-2 inline-block"
                   style={{
                     fontFamily: 'Almarai',
                     fontWeight: 600,
-                    minWidth: '160px',
+                    minWidth: '120px',
                     textDecoration: 'none'
                   }}
                 >
