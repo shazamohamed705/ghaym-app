@@ -66,13 +66,16 @@ function TestimonialsSection() {
              <div
              key={testimonial.id}
              className="
-               bg-white rounded-xl shadow-md text-center
-               hover:shadow-lg transition-all duration-300
+               bg-white rounded-xl shadow-lg text-center
+               hover:shadow-2xl transition-all duration-300
                w-full max-w-[550px] h-[250px]
                flex flex-col
                p-6
                relative
              "
+             style={{
+               boxShadow: '0 10px 25px rgba(0, 113, 189, 0.3), 0 4px 10px rgba(0, 113, 189, 0.2)'
+             }}
            >
            
             

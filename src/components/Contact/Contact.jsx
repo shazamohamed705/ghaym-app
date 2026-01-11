@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../Navbar/Navbar';
 import MainNavbar from '../Navbar/MainNavbar';
 import Footer from '../footer/footer';
 
@@ -6,6 +7,7 @@ function Contact() {
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
       {/* Navbar */}
+      <Navbar />
       <MainNavbar />
 
       {/* Hero Section */}

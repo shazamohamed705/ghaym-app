@@ -1,8 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav className="text-white py-2" style={{ backgroundColor: '#005b99' }} dir="rtl">
+    <nav className="hidden md:block text-white py-2" style={{
+      backgroundColor: '#005b99',
+      fontFamily: 'Almarai',
+      fontWeight: 700,
+      fontStyle: 'Bold',
+      fontSize: '16px',
+      leadingTrim: 'NONE',
+      lineHeight: '70px',
+      letterSpacing: '0%',
+      verticalAlign: 'middle'
+    }} dir="rtl">
       <div className="container mx-auto px-2 sm:px-4 flex flex-col sm:flex-row items-center gap-2 sm:gap-0 py-1 relative">
         {/* Right Section - Language and Contact (moved to left) */}
         <div className="flex flex-row-reverse sm:space-x-reverse sm:space-x-3 flex-wrap justify-center sm:justify-start items-center text-xs sm:text-sm gap-1.5 sm:gap-0" style={{ color: '#FFFFFF' }}>
@@ -24,9 +35,7 @@ function Navbar() {
           <span className="text-gray-400 hidden sm:inline px-2">|</span>
           <span className="hover:opacity-80 cursor-pointer transition-opacity sm:px-2">الحجوزات</span>
           <span className="text-gray-400 hidden sm:inline px-2">|</span>
-          <span className="hover:opacity-80 cursor-pointer transition-opacity sm:px-2">من نحن</span>
-          <span className="text-gray-400 hidden sm:inline px-2">|</span>
-          <span className="hover:opacity-80 cursor-pointer transition-opacity sm:px-2">تواصل معنا</span>
+          <Link to="/contact" className="hover:opacity-80 cursor-pointer transition-opacity sm:px-2">تواصل معنا</Link>
         </div>
       </div>
     </nav>

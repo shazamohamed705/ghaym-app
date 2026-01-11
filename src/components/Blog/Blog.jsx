@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import MainNavbar from '../Navbar/MainNavbar';
 import BannerCarousel from '../Banner/BannerCarousel';
 import Footer from '../footer/footer';
@@ -8,6 +9,7 @@ function Blog() {
   return (
     <div className="min-h-screen bg-white" dir="rtl">
       {/* Navbar */}
+      <Navbar />
       <MainNavbar />
 
       {/* Banner */}
@@ -15,7 +17,7 @@ function Blog() {
 
 
       {/* Blog Content */}
-      <section className="w-full py-16 bg-white" dir="rtl">
+      <section className="w-full pt-24 md:pt-16 pb-16 bg-white" dir="rtl">
         <div className="container mx-auto px-4">
           <div className="max-w-[1500px] mx-auto">
             {/* العنوان الرئيسي */}
@@ -37,16 +39,16 @@ function Blog() {
             <div className="p-8">
               <div className="flex flex-col lg:flex-row gap-8 items-center">
                 {/* النص */}
-                <div className="w-full lg:w-1/2 text-right" style={{ marginTop: '-220px' }}>
-                  <h3
-                    className="text-3xl font-bold text-gray-900 mb-3"
-                    style={{
-                      fontFamily: 'Almarai',
-                      fontWeight: 700,
-                      lineHeight: '57.6px',
-                      textAlign: 'right'
-                    }}
-                  >
+                <div className="w-full lg:w-1/2 text-right mt-0 lg:mt-[-220px]">
+                    <h3
+                      className="text-2xl md:text-3xl font-bold text-gray-900 mb-3"
+                      style={{
+                        fontFamily: 'Almarai',
+                        fontWeight: 700,
+                        lineHeight: '57.6px',
+                        textAlign: 'right'
+                      }}
+                    >
                     افضل نوع بوتوكس , دليلك لاختيار الأنسب لك
                   </h3>
 
@@ -69,15 +71,11 @@ function Blog() {
                   <img
                     src="/Rectangle 4.png"
                     alt="Blog Image 1"
-                    className="rounded-lg"
+                    className="rounded-lg w-[220px] h-[300px] sm:w-[260px] sm:h-[340px] lg:w-[300px] lg:h-[400px]"
                     style={{
-                      width: '300px',
-                      height: '400px',
-                      opacity: 1,
-                      objectFit: 'cover',
                       zIndex: 20,
-                      boxShadow: '0 35px 70px -12px rgba(0, 0, 0, 0.35), 0 20px 40px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.2)',
-                      filter: 'brightness(1.08) contrast(1.15) saturate(1.1)',
+                      objectFit: 'cover',
+                      boxShadow: '0 35px 70px -12px rgba(0, 0, 0, 0.35)',
                       transform: 'translateY(-8px) scale(1.05)'
                     }}
                   />
@@ -85,11 +83,8 @@ function Blog() {
                   <img
                     src="/Rectangle 5.png"
                     alt="Blog Image 2"
-                    className="rounded-lg shadow-lg"
+                    className="rounded-lg shadow-lg w-[180px] h-[240px] sm:w-[210px] sm:h-[280px] lg:w-[250px] lg:h-[320px]"
                     style={{
-                      width: '250px',
-                      height: '320px',
-                      opacity: 1,
                       objectFit: 'cover',
                       transform: 'translateX(-10px)'
                     }}

@@ -1,13 +1,15 @@
  
- import React from 'react';
- import { Link } from 'react-router-dom';
- import MainNavbar from '../Navbar/MainNavbar';
- import BannerCarousel from '../Banner/BannerCarousel';
- import Footer from '../footer/footer';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import MainNavbar from '../Navbar/MainNavbar';
+import BannerCarousel from '../Banner/BannerCarousel';
+import Footer from '../footer/footer';
  function About() {
     return (
         <div className="min-h-screen  bg-gradient-to-r from-[#0171bd]/10 to-[#a6c80d]/10" dir="ltr">
           {/* Navbar */}
+          <Navbar />
           <MainNavbar />
     
           {/* Banner */}
@@ -56,45 +58,22 @@
           </div>
 
           {/* الجزء الأيمن - النص */}
-          <div className="w-full md:w-1/2 text-center md:text-right" dir="rtl" style={{ marginRight: '4rem' }}>
-            <h2 
-              className="mb-3 text-gray-900"
-              style={{
-                fontFamily: 'Almarai',
-                fontWeight: 700,
-                fontSize: '40px',
-                lineHeight: '140%',
-                textAlign: 'right'
-              }}
-            >
+          <div className="w-full md:w-1/2 text-center md:text-right md:mr-16" dir="rtl">
+            <h2 className="mb-3 font-bold text-2xl sm:text-3xl md:text-[40px] text-center md:text-right">
               مجمع <span className="text-[#9bc115]">غيم الطبي</span>
             </h2>
-            <h3 
-              className="mb-4 text-gray-800"
-              style={{
-                fontFamily: 'Almarai',
-                fontWeight: 700,
-                fontSize: '40px',
-                lineHeight: '140%',
-                textAlign: 'right'
-              }}
-            >
+            <h3 className="mb-4 font-bold text-2xl sm:text-3xl md:text-[40px] text-center md:text-right">
               رعاية متكاملة لجمالك وصحتك
             </h3>
-            <p 
-              className="text-gray-600 max-w-4xl mx-auto md:mx-0"
-              style={{
-                fontFamily: 'Almarai',
-                fontWeight: 400,
-                fontSize: '20px',
-                lineHeight: '140%',
-                textAlign: 'justify'
-              }}
-            >
+            <p className="text-gray-600 max-w-4xl mx-auto md:mx-0 text-sm sm:text-base md:text-[20px] text-center md:text-justify">
               يُعد مجمع غيم الطبي أحد المراكز الطبية المتميزة في مدينة جدة، يقدم خدمات شاملة في طب الأسنان، الجلدية، والتجميل، على يد فريق من الأطباء المتخصصين ذوي الكفاءة العالية والخبرة الطويلة. نهدف إلى توفير رعاية طبية متكاملة تعتمد على أحدث التقنيات والأجهزة، مع الالتزام بأعلى معايير التعقيم والجودة لضمان سلامة ورضا كل مراجع. في مجمع غيم الطبي، نؤمن بأن العناية بالابتسامة والبشرة ليست رفاهية، بل جزء من الصحة العامة وثقة الإنسان بنفسه، لذلك نحرص على تقديم حلول علاجية وتجميلية تناسب احتياجات كل عميل وتحقق نتائج طبيعية ومرضية.
             </p>
 
-           
+            <button
+              className="mt-6 inline-flex items-center justify-center px-8 py-2.5 text-sm sm:text-base font-semibold rounded-lg border border-[#0171bd] text-[#0171bd] bg-white hover:bg-[#0171bd] hover:text-white transition-colors shadow-sm"
+            >
+              احجز الآن
+            </button>
           </div>
         </div>
       </section>

@@ -37,7 +37,7 @@ function ServicesSection() {
 
       <div className="container mx-auto px-4">
         {/* العنوان والعنوان الفرعي */}
-        <div className="mb-8 md:mb-12 text-right">
+        <div className="mb-8 md:mb-12 text-center md:text-right">
           <h2 
             className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-gray-900"
             style={{
@@ -59,11 +59,11 @@ function ServicesSection() {
         </div>
 
         {/* البطاقات */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 place-items-center md:grid-cols-2 md:place-items-start lg:grid-cols-4 gap-4 sm:gap-6">
           {clinics.map((clinic) => (
             <div
               key={clinic.id}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-auto md:mx-0"
               style={{
                 width: '337.16px',
                 height: '482.20px',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import MainNavbar from '../Navbar/MainNavbar';
 import BannerCarousel from '../Banner/BannerCarousel';
 import Footer from '../footer/footer';
@@ -45,6 +46,7 @@ function DoctorsSection() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50" dir="ltr">
       {/* Navbar */}
+      <Navbar />
       <MainNavbar />
 
       {/* Banner Section */}

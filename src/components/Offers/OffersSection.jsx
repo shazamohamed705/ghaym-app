@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import MainNavbar from '../Navbar/MainNavbar';
 import BannerCarousel from '../Banner/BannerCarousel';
 import Footer from '../footer/footer';
@@ -57,6 +58,7 @@ function OffersSection() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50" dir="ltr">
       {/* Navbar */}
+      <Navbar />
       <MainNavbar />
 
       {/* Banner Section */}
@@ -88,7 +90,7 @@ function OffersSection() {
         </div>
 
         {/* الكروت */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 place-items-center">
           {offers.map((offer) => (
             <div
               key={offer.id}

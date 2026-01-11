@@ -84,10 +84,18 @@ function WhyChooseSection() {
           </div>
 
           {/* الصور */}
-          <div className="relative w-full flex justify-center md:justify-end">
+          <div className="relative w-full flex flex-col items-center gap-6 md:flex-row md:justify-end">
 
             {/* الصورة الكبيرة */}
-            <div className="relative w-[300px] h-[380px] rounded-2xl shadow-lg p-2">
+            <div className="
+              relative
+              w-[70%] h-[300px]
+              sm:w-[380px] sm:h-[380px]
+              md:w-[250px]
+              -mt-10 
+              sm:mt-0
+              rounded-2xl shadow-lg p-2
+            ">
               <img
                 src="/Rectangle 4.png"
                 alt="clinic"
@@ -124,7 +132,15 @@ function WhyChooseSection() {
             </div>
 
             {/* الصورة الصغيرة */}
-            <div className="absolute -bottom-10 -left-40 w-[200px] h-[240px] rounded-2xl overflow-hidden shadow-lg p-2" style={{ zIndex: -3 }}>
+            <div className="
+              absolute
+              -bottom-12 -left-16
+              w-[60%] h-[200px]
+              sm:w-[200px] sm:h-[240px] sm:-bottom-14 sm:-left-24
+              md:-bottom-10 md:-left-40
+              md:w-[200px]
+              rounded-2xl overflow-hidden shadow-lg p-2
+            " style={{ zIndex: -3 }}>
               <img
                 src="/Rectangle 5.png"
                 alt="smile"

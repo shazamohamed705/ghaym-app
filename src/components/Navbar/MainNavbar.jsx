@@ -44,8 +44,8 @@ function MainNavbar() {
             <Link to="/" className="text-gray-800 hover:text-blue-600 transition-colors">الرئيسية</Link>
             <Link to="/offers" className="text-gray-800 hover:text-blue-600 transition-colors">عروضنا</Link>
             <Link to="/doctors" className="text-gray-800 hover:text-blue-600 transition-colors">أطباؤنا</Link>
-            <a href="/booking" className="text-gray-800 hover:text-blue-600 transition-colors">حجز موعد</a>
-            <a href="/about" className="text-gray-800 hover:text-blue-600 transition-colors">من نحن</a>
+            <Link to="/booking" className="text-gray-800 hover:text-blue-600 transition-colors">حجز موعد</Link>
+            <Link to="/about" className="text-gray-800 hover:text-blue-600 transition-colors">من نحن</Link>
             <Link to="/blog" className="text-gray-800 hover:text-blue-600 transition-colors">المدونة</Link>
             <Link to="/contact" className="text-gray-800 hover:text-blue-600 transition-colors">تواصل معنا</Link>
           </div>
@@ -147,8 +147,8 @@ function MainNavbar() {
             <Link to="/" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">الرئيسية</Link>
             <Link to="/offers" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">عروضنا</Link>
             <Link to="/doctors" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">أطباؤنا</Link>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">حجز موعد</a>
-            <a href="#" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">من نحن</a>
+            <Link to="/booking" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">حجز موعد</Link>
+            <Link to="/about" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">من نحن</Link>
             <Link to="/blog" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">المدونة</Link>
             <Link to="/contact" className="text-gray-800 hover:text-blue-600 transition-colors text-sm font-medium">تواصل معنا</Link>
           </div>

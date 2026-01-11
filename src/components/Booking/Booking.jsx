@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../Navbar/Navbar';
 import MainNavbar from '../Navbar/MainNavbar';
 import BannerCarousel from '../Banner/BannerCarousel';
 import Footer from '../footer/footer';
@@ -107,6 +108,7 @@ function Booking() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50" dir="ltr">
       {/* Navbar */}
+      <Navbar />
       <MainNavbar />
 
       {/* Banner Section */}
@@ -115,7 +117,10 @@ function Booking() {
       </section>
 
       <div className="container mx-auto px-4 -mt-16 relative z-10">
-        <div className="rounded-lg p-6 md:p-8 bg-white shadow-xl" dir="rtl">
+        <div className="rounded-lg p-6 md:p-8 bg-white shadow-2xl" dir="rtl"
+             style={{
+               boxShadow: '0 10px 25px rgba(0, 113, 189, 0.3), 0 4px 10px rgba(0, 113, 189, 0.2)'
+             }}>
           {/* العنوان */}
           <h2
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-right"
@@ -128,7 +133,7 @@ function Booking() {
           </h2>
 
           {/* النموذج */}
-          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4 items-end">
+          <form onSubmit={handleSearch} className="flex flex-col gap-4 md:flex-row md:items-end">
             {/* حقل التخصص */}
             <div className="flex-1 relative">
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10">
@@ -141,7 +146,6 @@ function Booking() {
                 value={formData.specialization}
                 onChange={handleChange}
                 className="w-full pr-12 pl-4 py-3 border border-[#0171bd] rounded-lg text-right appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-[#0171bd] focus:border-transparent"
-                style={{ fontFamily: 'Almarai' }}
                 required
               >
                 <option value="">اختر التخصص</option>
@@ -168,7 +172,6 @@ function Booking() {
                 value={formData.doctor}
                 onChange={handleChange}
                 className="w-full pr-12 pl-4 py-3 border border-[#0171bd] rounded-lg text-right appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-[#0171bd] focus:border-transparent"
-                style={{ fontFamily: 'Almarai' }}
                 required
               >
                 <option value="">إختر الطبيب</option>
@@ -195,7 +198,6 @@ function Booking() {
                 value={formData.date}
                 onChange={handleChange}
                 className="w-full pr-12 pl-4 py-3 border border-[#0171bd] rounded-lg text-right appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-[#0171bd] focus:border-transparent"
-                style={{ fontFamily: 'Almarai' }}
                 required
               >
                 <option value="">اختر التاريخ</option>

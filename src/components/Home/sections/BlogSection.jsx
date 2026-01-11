@@ -52,63 +52,56 @@ function BlogSection() {
 
                 {/* زر اقرأ المزيد */}
                 <Link
-                  to="/blog"
-                  className="mt-6 px-4 py-2 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-colors duration-300 text-sm font-semibold flex items-center gap-2 inline-block"
-                  style={{
-                    fontFamily: 'Almarai',
-                    fontWeight: 600,
-                    minWidth: '120px',
-                    textDecoration: 'none'
-                  }}
-                >
-                  اقرأ المزيد
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 15l7-7 7 7"
-                    />
-                  </svg>
-                </Link>
+  to="/blog"
+  className="mt-6 px-5 py-2.5 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-colors duration-300 text-sm font-semibold inline-flex items-center gap-2"
+  style={{
+    fontFamily: 'Almarai',
+    fontWeight: 600,
+    textDecoration: 'none'
+  }}
+>
+  اقرأ المزيد
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 15l7-7 7 7"
+    />
+  </svg>
+</Link>
+
               </div>
 
               {/* الصور جنب بعض */}
               <div className="flex gap-4 w-full lg:w-1/2 justify-center">
-                <img
-                  src="/Rectangle 4.png"
-                  alt="Blog Image 1"
-                  className="rounded-lg"
-                  style={{
-                    width: '300px',
-                    height: '400px',
-                    opacity: 1,
-                    objectFit: 'cover',
-                    zIndex: 20,
-                    boxShadow: '0 35px 70px -12px rgba(0, 0, 0, 0.35), 0 20px 40px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.2)',
-                    filter: 'brightness(1.08) contrast(1.15) saturate(1.1)',
-                    transform: 'translateY(-8px) scale(1.05)'
-                  }}
-                />
+                  <img
+                    src="/Rectangle 4.png"
+                    alt="Blog Image 1"
+                    className="rounded-lg w-[220px] h-[300px] sm:w-[260px] sm:h-[340px] lg:w-[300px] lg:h-[400px]"
+                    style={{
+                      zIndex: 20,
+                      objectFit: 'cover',
+                      boxShadow: '0 35px 70px -12px rgba(0, 0, 0, 0.35)',
+                      transform: 'translateY(-8px) scale(1.05)'
+                    }}
+                  />
 
-                <img
-                  src="/Rectangle 5.png"
-                  alt="Blog Image 2"
-                  className="rounded-lg shadow-lg"
-                  style={{
-                    width: '250px',
-                    height: '320px',
-                    opacity: 1,
-                    objectFit: 'cover',
-                    transform: 'translateX(-10px)'
-                  }}
-                />
-              </div>
+                  <img
+                    src="/Rectangle 5.png"
+                    alt="Blog Image 2"
+                    className="rounded-lg shadow-lg w-[180px] h-[240px] sm:w-[210px] sm:h-[280px] lg:w-[250px] lg:h-[320px]"
+                    style={{
+                      objectFit: 'cover',
+                      transform: 'translateX(-10px)'
+                    }}
+                  />
+                </div>
             </div>
           </div>
         </div>
