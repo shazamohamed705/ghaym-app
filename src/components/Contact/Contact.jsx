@@ -1,162 +1,407 @@
-import React from 'react';
-import Navbar from '../Navbar/Navbar';
+import React, { useState, useCallback, useMemo } from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
+import './contact.css';
 import MainNavbar from '../Navbar/MainNavbar';
 import Footer from '../footer/footer';
+const Contact = () => {
+  // Form state management
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    mobile: '',
+    subject: '',
+    message: '',
+    captcha: ''
+  });
 
-function Contact() {
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Captcha generation (simple math) - memoized for performance
+  const captchaQuestion = useMemo(() => {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    return { num1, num2, answer: num1 + num2 };
+  }, []);
+
+  // Input change handler - optimized with debouncing concept
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear error when user starts typing - more efficient
+    setErrors(prev => {
+      if (prev[name]) {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      }
+      return prev;
+    });
+  }, []);
+
+  // Validation function
+  const validateForm = useCallback(() => {
+    const newErrors = {};
+
+    // Full name validation
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'الاسم الكامل مطلوب';
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = 'يجب أن يحتوي الاسم على حرفين على الأقل';
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'البريد الإلكتروني مطلوب';
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'البريد الإلكتروني غير صحيح';
+    }
+
+    // Mobile validation
+    const mobileRegex = /^05\d{8}$/;
+    if (!formData.mobile.trim()) {
+      newErrors.mobile = 'رقم الجوال مطلوب';
+    } else if (!mobileRegex.test(formData.mobile)) {
+      newErrors.mobile = 'رقم الجوال يجب أن يبدأ بـ 05 ويحتوي على 10 أرقام';
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'الرسالة مطلوبة';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'يجب أن تحتوي الرسالة على 10 أحرف على الأقل';
+    }
+
+    // Subject validation
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'الموضوع مطلوب';
+    } else if (formData.subject.trim().length < 3) {
+      newErrors.subject = 'الموضوع قصير جداً';
+    }
+
+    // Captcha validation
+    if (!formData.captcha.trim()) {
+      newErrors.captcha = 'الإجابة مطلوبة';
+    } else if (parseInt(formData.captcha) !== captchaQuestion.answer) {
+      newErrors.captcha = 'الإجابة غير صحيحة';
+    }
+
+    return newErrors;
+  }, [formData, captchaQuestion.answer]);
+
+  // Form submission handler
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault();
+    
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrors({});
+
+    try {
+      const token = localStorage.getItem('userToken');
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      };
+
+      const response = await fetch('https://ghaimcenter.com/laravel/api/contact/submit', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.mobile,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.status === 'error') {
+        throw new Error(result?.message || 'تعذر إرسال الرسالة الآن');
+      }
+
+      setIsSubmitted(true);
+      
+      // Reset form after successful submission
+      setFormData({
+        fullName: '',
+        email: '',
+        mobile: '',
+        subject: '',
+        message: '',
+        captcha: ''
+      });
+      
+    } catch (error) {
+      console.error('Submission error:', error);
+      setErrors({ submit: error?.message || 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [formData, validateForm]);
+
+  // Reset success message after 5 seconds - optimized
+  React.useEffect(() => {
+    if (!isSubmitted) return;
+    
+    const timer = setTimeout(() => setIsSubmitted(false), 5000);
+    return () => clearTimeout(timer);
+  }, [isSubmitted]);
+
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
-      {/* Navbar */}
-      <Navbar />
+    <div className="min-h-screen bg-white">
       <MainNavbar />
+      <div className="contact-page">
+      <div className="contact-container">
+        {/* Page Header */}
+        <div className="contact-page-header">
+          <h1 className="contact-page-title">
+            <span className="contact-title-main">تواصل معنا</span>
+            <span className="contact-title-sub">... يسعدنا تلقي استفسارك، و سنكون بخدمتك في أسرع وقت</span>
+          </h1>
+        </div>
+        
+        <div className="contact-form-panel">
 
-      {/* Hero Section */}
-      <section className="w-full pt-32 pb-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-right">
-              <h1
-                className="text-3xl md:text-4xl font-light text-gray-800 mb-6 inline-block"
+          {/* Success Message */}
+          {isSubmitted && (
+            <div
+              className="contact-success-overlay"
+              onClick={() => setIsSubmitted(false)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,0.35)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1000,
+                padding: '16px'
+              }}
+            >
+              <div
+                role="dialog"
+                aria-live="polite"
+                aria-label="تم إرسال الرسالة بنجاح"
+                onClick={(e) => e.stopPropagation()}
                 style={{
-                  fontFamily: 'Almarai',
-                  fontWeight: 300
+                  width: '100%',
+                  maxWidth: '420px',
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                  padding: '24px',
+                  textAlign: 'center',
+                  animation: 'fadeInScale 200ms ease-out'
                 }}
               >
-                تواصل معنا... يسعدنا تلقي استفسارك، و سنكون بخدمتك في أسرع وقت
-
-              </h1>
-              
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '50%',
+                      background: '#ecfdf5',
+                      color: '#10b981',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '28px'
+                    }}
+                  >
+                    <FaCheckCircle />
+                  </div>
+                  <h3 style={{ margin: 0, fontSize: '20px', color: '#111827', fontWeight: 700 }}>تم إرسال الرسالة</h3>
+                  <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>شكرًا لتواصلك معنا، سنرد عليك في أقرب وقت.</p>
+                  <button
+                    type="button"
+                    onClick={() => setIsSubmitted(false)}
+                    style={{
+                      marginTop: '12px',
+                      background: '#10b981',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderRadius: '8px',
+                      padding: '10px 16px',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    تم
+                  </button>
+                </div>
+              </div>
             </div>
+          )}
+
+          {/* Submit Error */}
+          {errors.submit && (
+            <div className="contact-error-message" style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              {errors.submit}
+            </div>
+          )}
+
+          {/* Contact Form */}
+          <form onSubmit={handleSubmit} noValidate>
+            {/* Form Fields Grid */}
+            <div className="contact-form-fields">
+              {/* Full Name */}
+              <div className="contact-form-group">
+                <label htmlFor="fullName" className="contact-form-label">
+                  الاسم الكامل <span className="contact-form-required">(مطلوب)</span>
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className={`contact-form-input ${errors.fullName ? 'error' : ''}`}
+                  placeholder={formData.fullName ? '' : 'اكتب اسمك الكامل'}
+                  disabled={isSubmitting}
+                />
+                {errors.fullName && (
+                  <div className="contact-error-message">{errors.fullName}</div>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className="contact-form-group">
+                <label htmlFor="email" className="contact-form-label">
+                  البريد الإلكتروني <span className="contact-form-required">(مطلوب)</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={`contact-form-input ${errors.email ? 'error' : ''}`}
+                  placeholder={!formData.email ? 'example@mail.com' : ''}
+                  disabled={isSubmitting}
+                />
+                {errors.email && (
+                  <div className="contact-error-message">{errors.email}</div>
+                )}
+              </div>
+
+              {/* Mobile */}
+              <div className="contact-form-group">
+                <label htmlFor="mobile" className="contact-form-label">
+                  رقم الجوال <span className="contact-form-required">(مطلوب)</span>
+                </label>
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  className={`contact-form-input ${errors.mobile ? 'error' : ''}`}
+                  placeholder={formData.mobile ? '' : '05xxxxxxxx'}
+                  disabled={isSubmitting}
+                />
+                {errors.mobile && (
+                  <div className="contact-error-message">{errors.mobile}</div>
+                )}
+              </div>
+
+              {/* Subject */}
+              <div className="contact-form-group">
+                <label htmlFor="subject" className="contact-form-label">
+                  الموضوع <span className="contact-form-required">(مطلوب)</span>
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  className={`contact-form-input ${errors.subject ? 'error' : ''}`}
+                  placeholder={formData.subject ? '' : 'أدخل موضوع الرسالة'}
+                  disabled={isSubmitting}
+                />
+                {errors.subject && (
+                  <div className="contact-error-message">{errors.subject}</div>
+                )}
+              </div>
+
+              {/* Message - Full Width */}
+              <div className="contact-form-group full-width">
+                <label htmlFor="message" className="contact-form-label">
+                  الرسالة <span className="contact-form-required">(مطلوبة)</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className={`contact-form-textarea ${errors.message ? 'error' : ''}`}
+                  placeholder={formData.message ? '' : 'اكتب رسالتك هنا'}
+                  disabled={isSubmitting}
+                  rows="4"
+                />
+                {errors.message && (
+                  <div className="contact-error-message">{errors.message}</div>
+                )}
+              </div>
+            </div>
+
+            {/* Captcha */}
+            <div className="contact-captcha-group">
+              <label htmlFor="captcha" className="contact-captcha-label">
+                فضلاً أجب : {captchaQuestion.num1} + {captchaQuestion.num2} = ؟ <span className="contact-form-required">(مطلوب)</span>
+              </label>
+              <input
+                type="number"
+                id="captcha"
+                name="captcha"
+                value={formData.captcha}
+                onChange={handleInputChange}
+                className={`contact-captcha-input ${errors.captcha ? 'error' : ''}`}
+                placeholder={formData.captcha ? '' : 'أدخل الإجابة'}
+                disabled={isSubmitting}
+              />
+              {errors.captcha && (
+                <div className="contact-error-message">{errors.captcha}</div>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className={`contact-submit-btn ${isSubmitting ? 'loading' : ''}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'جاري الإرسال...' : 'إرسال'}
+            </button>
+          </form>
+
+          {/* Footer Contact Info */}
+          <div className="contact-footer">
+            <a href="mailto:info@ghanim.com" className="contact-email">
+              info@ghanim.com
+            </a>
+            <span className="contact-phone">966539366005+</span>
           </div>
         </div>
-      </section>
-
-      {/* Contact Info Table */}
-      <section className="w-full py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto mr-16">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gradient-to-r from-blue-800 to-blue-900">
-                    <th className="px-12 py-8 text-right text-lg font-bold text-white" style={{ fontFamily: 'Almarai' }}>
-                      الخدمة
-                    </th>
-                    <th className="px-12 py-8 text-right text-lg font-bold text-white" style={{ fontFamily: 'Almarai' }}>
-                      المعلومات
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {/* Phone */}
-                  <tr className="hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 transition-all duration-300 transform hover:scale-[1.02]">
-                    <td className="px-12 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#a6c80d] to-[#8bc34a] rounded-2xl flex items-center justify-center shadow-lg">
-                          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                          </svg>
-                        </div>
-                        <span className="text-gray-900 font-bold text-lg" style={{ fontFamily: 'Almarai' }}>الهاتف</span>
-                      </div>
-                    </td>
-                    <td className="px-12 py-8">
-                      <span className="text-gray-700 font-semibold text-xl" style={{ fontFamily: 'Almarai' }}>+966 50 123 4567</span>
-                    </td>
-                  </tr>
-
-                  {/* Email */}
-                  <tr className="hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 transform hover:scale-[1.02]">
-                    <td className="px-12 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <span className="text-gray-900 font-bold text-lg" style={{ fontFamily: 'Almarai' }}>البريد الإلكتروني</span>
-                      </div>
-                    </td>
-                    <td className="px-12 py-8">
-                      <span className="text-blue-600 font-semibold text-xl hover:text-blue-700 transition-colors cursor-pointer" style={{ fontFamily: 'Almarai' }}>info@ghaym-medical.com</span>
-                    </td>
-                  </tr>
-
-                  {/* WhatsApp */}
-                  <tr className="hover:bg-gradient-to-r hover:from-green-50 hover:to-lime-50 transition-all duration-300 transform hover:scale-[1.02]">
-                    <td className="px-12 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
-                          <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
-                          </svg>
-                        </div>
-                        <span className="text-gray-900 font-bold text-xl" style={{ fontFamily: 'Almarai' }}>واتساب</span>
-                      </div>
-                    </td>
-                    <td className="px-12 py-8">
-                      <span className="text-green-600 font-semibold text-xl hover:text-green-700 transition-colors cursor-pointer" style={{ fontFamily: 'Almarai' }}>+966 50 123 4567</span>
-                    </td>
-                  </tr>
-
-                  {/* Address */}
-                  <tr className="hover:bg-gradient-to-r hover:from-purple-50 hover:to-violet-50 transition-all duration-300 transform hover:scale-[1.02]">
-                    <td className="px-12 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                        </div>
-                        <span className="text-gray-900 font-bold text-xl" style={{ fontFamily: 'Almarai' }}>العنوان</span>
-                      </div>
-                    </td>
-                    <td className="px-12 py-8">
-                      <span className="text-purple-600 font-semibold text-xl" style={{ fontFamily: 'Almarai' }}>الرياض، المملكة العربية السعودية</span>
-                    </td>
-                  </tr>
-
-                  {/* Working Hours */}
-                  <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all duration-300 transform hover:scale-[1.02]">
-                    <td className="px-12 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-                          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <span className="text-gray-900 font-bold text-xl" style={{ fontFamily: 'Almarai' }}>ساعات العمل</span>
-                      </div>
-                    </td>
-                    <td className="px-12 py-8">
-                      <div className="text-orange-600 font-semibold text-xl" style={{ fontFamily: 'Almarai' }}>
-                        <div>الأحد - الخميس: 8:00 - 22:00</div>
-                        <div>الجمعة - السبت: 10:00 - 18:00</div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Call to Action */}
-            <div className="text-center mt-12">
-              <p className="text-gray-600 mb-6" style={{ fontFamily: 'Almarai' }}>
-                نحن ملتزمون بتقديم أفضل الخدمات الطبية لك ولعائلتك
-              </p>
-              <button className="bg-[#a6c80d] hover:bg-[#95b50c] text-white px-8 py-3 rounded-lg transition-colors duration-300 text-lg font-semibold shadow-md">
-                <span style={{ fontFamily: 'Almarai', fontWeight: 600 }}>احجز موعدك الآن</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
+      </div>
+      </div>
       <Footer />
     </div>
   );
-}
+};
 
-export default Contact;
+export default React.memo(Contact);

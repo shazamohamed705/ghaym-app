@@ -8,6 +8,14 @@ function CTASection() {
   <div className="absolute inset-x-0 top-16 h-[350px] bg-gradient-to-r from-[#0171bd]/10 via-[#a6c80d]/20 to-[#a6c80d]/5 -z-10" />
     
       <div className="container mx-auto px-4 relative min-h-[400px]">
+        {/* الصورة كخلفية للموبايل */}
+        <div className="block md:hidden absolute inset-0 opacity-15">
+          <img
+            src="/Image.png"
+            alt="دكتور"
+            className="w-full h-full object-cover object-center scale-150 translate-x-8"
+          />
+        </div>
 
         {/* النص -   */}
         <div className="absolute right-20 top-8 z-20 text-right max-w-md">

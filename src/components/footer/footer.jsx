@@ -6,7 +6,7 @@ function Footer() {
     <footer className="bg-[#0b6fb3] text-white pt-16" dir="rtl">
       <div className="container mx-auto px-6">
         {/* Top Footer */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 border-b border-white/20 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 border-b border-white/20 pb-12">
 
           {/* وصف المجمع */}
           <div>

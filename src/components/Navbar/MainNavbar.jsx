@@ -52,7 +52,7 @@ function MainNavbar() {
 
           {/* Account / Cart */}
           <div className="flex gap-4 pt-3 border-t text-sm">
-            <span className="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors">الحساب</span>
+            <Link to="/Login"className="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors">الحساب</Link>
             <span className="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors">الحجوزات</span>
             <span className="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors">🛒</span>
           </div>

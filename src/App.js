@@ -7,6 +7,8 @@ import Booking from './components/Booking/Booking';
 import About from './components/About/About';
 import DoctorsSection from './components/Doctors/DoctorsSection';
 import OffersSection from './components/Offers/OffersSection';
+import Login from './components/Login/Login'
+import Rergister from './components/Register/Register'
 function App() {
   return (
     <Router>
@@ -18,6 +20,8 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="/Login"element={<Login />}/>
+        <Route path="/Register"element={<Login />}/>
       </Routes>
     </Router>
   );
